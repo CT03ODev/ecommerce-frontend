@@ -1,50 +1,42 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faHeart, faBagShopping, faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
     return (
         <div>
             <header className="py-4 shadow-sm bg-white">
                 <div className="container flex items-center justify-between">
-                    <a href="index.html">
+                    <Link to="/">
                         <img src="../assets/images/logo.svg" alt="Logo" className="w-32"/>
-                    </a>
+                    </Link>
 
                     <div className="w-full max-w-xl relative flex">
                         <span className="absolute left-4 top-3 text-lg text-gray-400">
-                            <i className="fa-solid fa-magnifying-glass"></i>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </span>
                         <input type="text" name="search" id="search"
                             className="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                             placeholder="search"/>
-                            <button
-                                className="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+                        <button
+                            className="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
                     </div>
 
                     <div className="flex items-center space-x-4">
-                        <a href="#" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <div className="text-2xl">
-                                <i className="fa-regular fa-heart"></i>
-                            </div>
+                        <Link to="/wishlist" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <FontAwesomeIcon icon={faHeart} className="text-2xl" />
                             <div className="text-xs leading-3">Wishlist</div>
-                            <div
-                                className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                                8</div>
-                        </a>
-                        <a href="#" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <div className="text-2xl">
-                                <i className="fa-solid fa-bag-shopping"></i>
-                            </div>
+                            <div className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">8</div>
+                        </Link>
+                        <Link to="/cart" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <FontAwesomeIcon icon={faBagShopping} className="text-2xl" />
                             <div className="text-xs leading-3">Cart</div>
-                            <div
-                                className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                                2</div>
-                        </a>
-                        <a href="#" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <div className="text-2xl">
-                                <i className="fa-regular fa-user"></i>
-                            </div>
+                            <div className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">2</div>
+                        </Link>
+                        <Link to="/account" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <FontAwesomeIcon icon={faUser} className="text-2xl" />
                             <div className="text-xs leading-3">Account</div>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -52,11 +44,8 @@ function Header() {
             <nav className="bg-gray-800">
                 <div className="container flex">
                     <div className="px-8 py-4 bg-primary flex items-center cursor-pointer relative group">
-                        <span className="text-white">
-                            <i className="fa-solid fa-bars"></i>
-                        </span>
+                        <FontAwesomeIcon icon={faBars} className="text-white" />
                         <span className="capitalize ml-2 text-white">All Categories</span>
-
                         <div
                             className="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
                             <a href="#" className="flex items-center px-6 py-3 hover:bg-gray-100 transition">
@@ -88,10 +77,10 @@ function Header() {
 
                     <div className="flex items-center justify-between flex-grow pl-12">
                         <div className="flex items-center space-x-6 capitalize">
-                            <a href="../index.html" className="text-gray-200 hover:text-white transition">Home</a>
-                            <a href="pages/shop.html" className="text-gray-200 hover:text-white transition">Shop</a>
-                            <a href="#" className="text-gray-200 hover:text-white transition">About us</a>
-                            <a href="#" className="text-gray-200 hover:text-white transition">Contact us</a>
+                            <Link to="/" className="text-gray-200 hover:text-white transition">Home</Link>
+                            <Link to="/shop" className="text-gray-200 hover:text-white transition">Shop</Link>
+                            <Link to="/about" className="text-gray-200 hover:text-white transition">About us</Link>
+                            <Link to="/contact" className="text-gray-200 hover:text-white transition">Contact us</Link>
                         </div>
                         <Link to="/login" className="text-gray-200 hover:text-white transition">Login/Register</Link>
                     </div>

@@ -1,6 +1,7 @@
 import MainLayout from "../components/layouts/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 
 const routes = [
@@ -17,6 +18,11 @@ const routes = [
     {
         path: '/login',
         page: Login,
+        layout: MainLayout
+    },
+    {
+        path: '/*',
+        page: NotFound,
         layout: MainLayout
     },
 ];

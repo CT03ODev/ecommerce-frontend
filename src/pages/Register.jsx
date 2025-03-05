@@ -1,6 +1,31 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { request } from "../services/request";
+import { useForm } from "react-hook-form";
 
 function Register() {
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    const onSubmit = async (data) => {
+        setError(null);
+        try {
+            const response = await request({
+                url: '/register',
+                method: 'post',
+                data
+            });
+            if (response.status === 200) {
+                reset();
+                navigate("/");
+            }
+        } catch (err) {
+            setError("Something went wrong!");
+        }
+    };
+
     return (
         <div>
             <div className="contain py-16">
@@ -9,31 +34,59 @@ function Register() {
                     <p className="text-gray-600 mb-6 text-sm">
                         Register for new cosutumer
                     </p>
-                    <form action="#" method="post" autocomplete="off">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="space-y-2">
                             <div>
                                 <label for="name" className="text-gray-600 mb-2 block">Full Name</label>
-                                <input type="text" name="name" id="name"
+                                <input 
+                                    type="text" 
+                                    name="name" id="name"
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="fulan fulana"/>
+                                    placeholder="fulan fulana"
+                                    {...register("name", { required: "Name is required", minLength: { value: 6, message: "Name must be at least 6 characters" } })}
+                                />
+                                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                             </div>
                             <div>
                                 <label for="email" className="text-gray-600 mb-2 block">Email address</label>
-                                <input type="email" name="email" id="email"
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email"
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="youremail.@domain.com"/>
+                                    placeholder="youremail.@domain.com"
+                                    {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/, message: "Invalid email format" } })}
+                                />
+                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                             </div>
                             <div>
                                 <label for="password" className="text-gray-600 mb-2 block">Password</label>
-                                <input type="password" name="password" id="password"
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password"
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="*******"/>
+                                    placeholder="*******"
+                                    {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
+                                />
+                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                                {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                             </div>
                             <div>
                                 <label for="confirm" className="text-gray-600 mb-2 block">Confirm password</label>
-                                <input type="password" name="confirm" id="confirm"
+                                <input 
+                                    type="password" 
+                                    name="confirm" 
+                                    id="confirm"
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="*******"/>
+                                    placeholder="*******"
+                                    {...register("password_confirmation", {
+                                        required: "Confirm Password is required",
+                                        validate: (value, { password }) =>
+                                            value === password || "Passwords do not match",
+                                    })}
+                                />
+                                {errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{errors.password_confirmation.message}</p>}
                             </div>
                         </div>
                         <div className="mt-6">
