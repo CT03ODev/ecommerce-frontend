@@ -1,43 +1,19 @@
-import { Link } from "react-router-dom";
+import Logo from "./Logo";
+import SearchBar from "./SearchBar";
+import UserActions from "./UserActions";
+import NavLinks from "./NavLinks";
+import AuthSection from "./AuthSection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faHeart, faBagShopping, faUser, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
     return (
         <div>
             <header className="py-4 shadow-sm bg-white">
                 <div className="container flex items-center justify-between">
-                    <Link to="/">
-                        <img src="../assets/images/logo.svg" alt="Logo" className="w-32"/>
-                    </Link>
-
-                    <div className="w-full max-w-xl relative flex">
-                        <span className="absolute left-4 top-3 text-lg text-gray-400">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </span>
-                        <input type="text" name="search" id="search"
-                            className="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
-                            placeholder="search"/>
-                        <button
-                            className="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                        <Link to="/wishlist" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <FontAwesomeIcon icon={faHeart} className="text-2xl" />
-                            <div className="text-xs leading-3">Wishlist</div>
-                            <div className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">8</div>
-                        </Link>
-                        <Link to="/cart" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <FontAwesomeIcon icon={faBagShopping} className="text-2xl" />
-                            <div className="text-xs leading-3">Cart</div>
-                            <div className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">2</div>
-                        </Link>
-                        <Link to="/account" className="text-center text-gray-700 hover:text-primary transition relative">
-                            <FontAwesomeIcon icon={faUser} className="text-2xl" />
-                            <div className="text-xs leading-3">Account</div>
-                        </Link>
-                    </div>
+                    <Logo />
+                    <SearchBar />
+                    <UserActions />
                 </div>
             </header>
 
@@ -76,13 +52,8 @@ function Header() {
                     </div>
 
                     <div className="flex items-center justify-between flex-grow pl-12">
-                        <div className="flex items-center space-x-6 capitalize">
-                            <Link to="/" className="text-gray-200 hover:text-white transition">Home</Link>
-                            <Link to="/shop" className="text-gray-200 hover:text-white transition">Shop</Link>
-                            <Link to="/about" className="text-gray-200 hover:text-white transition">About us</Link>
-                            <Link to="/contact" className="text-gray-200 hover:text-white transition">Contact us</Link>
-                        </div>
-                        <Link to="/login" className="text-gray-200 hover:text-white transition">Login/Register</Link>
+                        <NavLinks />
+                        <AuthSection />
                     </div>
                 </div>
             </nav>

@@ -8,17 +8,19 @@ const routes = [
     {
         path: '/',
         page: Home,
-        layout: MainLayout
+        layout: MainLayout,
     },
     {
         path: '/register',
         page: Register,
-        layout: MainLayout
+        layout: MainLayout,
+        authRedirect: true,
     },
     {
         path: '/login',
         page: Login,
-        layout: MainLayout
+        layout: MainLayout,
+        authRedirect: true,
     },
     {
         path: '/*',

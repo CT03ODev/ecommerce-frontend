@@ -1,5 +1,5 @@
 export const app = {
-    name: 'Shop Nội Thất',
+    name: 'MTW Ecommerce',
     description: ''
 }
 
