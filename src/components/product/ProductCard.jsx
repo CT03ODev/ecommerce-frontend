@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 
-function ProductCard() {
+function ProductCard({ product }) {
     return (
         <div className="bg-white shadow rounded overflow-hidden group">
             <div className="relative">

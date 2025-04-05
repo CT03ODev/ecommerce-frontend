@@ -1,8 +1,11 @@
 import MainLayout from "../components/layouts/MainLayout";
+import Category from "../pages/Category";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import Product from "../pages/Product";
 import Register from "../pages/Register";
+import Shop from "../pages/Shop";
 
 const routes = [
     {
@@ -21,6 +24,16 @@ const routes = [
         page: Login,
         layout: MainLayout,
         authRedirect: true,
+    },
+    {
+        path: '/shop',
+        page: Shop,
+        layout: MainLayout,
+    },
+    {
+        path: '/product/:productSlug',
+        page: Product,
+        layout: MainLayout,
     },
     {
         path: '/*',
