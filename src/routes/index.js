@@ -1,4 +1,6 @@
 import MainLayout from "../components/layouts/MainLayout";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
@@ -10,6 +12,16 @@ const routes = [
     {
         path: '/',
         page: Home,
+        layout: MainLayout,
+    },
+    {
+        path: '/about',
+        page: About,
+        layout: MainLayout,
+    },
+    {
+        path: '/contact',
+        page: Contact,
         layout: MainLayout,
     },
     {
