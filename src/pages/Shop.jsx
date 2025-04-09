@@ -12,7 +12,7 @@ function Shop() {
     const [sortFilter, setSortFilter] = useState({}); // State for sorting
     const [filters, setFilters] = useState({}); // State for filters (e.g., categories, brands)
 
-    const { data: products, isLoading, isError } = useQuery({
+    const { data: products, isLoading, isError, isSuccess } = useQuery({
         queryKey: ["products", sortFilter, filters, pageParams.current_page],
         queryFn: async () => {
             const response = await request({
@@ -50,13 +50,13 @@ function Shop() {
     useEffect(() => {
         switch (sort) {
             case "price-low-to-high":
-                setSortFilter({ sort_price: "asc" });
+                setSortFilter({ sort: 'price', sort_type: "asc" });
                 break;
             case "price-high-to-low":
-                setSortFilter({ sort_price: "desc" });
+                setSortFilter({ sort: 'price', sort_type: "desc" });
                 break;
             case "latest":
-                setSortFilter({ sort_created: "desc" });
+                setSortFilter({ sort: 'created_at', sort_type: "desc" });
                 break;
             default:
                 setSortFilter({});
@@ -96,8 +96,9 @@ function Shop() {
                     </select>
                 </div>
                 <div className="grid md:grid-cols-3 grid-cols-2 gap-6">
-                    {isLoading && <p className="text-gray-600">Loading products...</p>}
-                    {isError && <p className="text-red-600">Failed to load products</p>}
+                    {isLoading && <p className="col-span-full text-center text-gray-600">Loading products...</p>}
+                    {isError && <p className="col-span-full text-center text-red-600">Failed to load products</p>}
+                    {isSuccess && !products.length && <p className="col-span-full text-center text-gray-600">No product found!</p>}
                     {products &&
                         products.map((product) => (
                             <ProductCard key={product.id} product={product} />

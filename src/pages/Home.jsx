@@ -14,7 +14,8 @@ function Home() {
                 method: "get",
                 url: "/products",
                 params: {
-                    sort_created: "desc",
+                    sort: "created_at",
+                    sort_type: "desc",
                     limit: 12,
                 },
             });
@@ -29,7 +30,8 @@ function Home() {
                 method: "get",
                 url: "/products",
                 params: {
-                    sort_price: "desc",
+                    sort: "price",
+                    sort_type: "desc",
                     limit: 12,
                 }
             });

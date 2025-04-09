@@ -19,6 +19,21 @@ function Product() {
         },
     });
 
+    const { data: relatedProducts, isLoading: isLoadingRelated, isError: isErrorRelated } = useQuery({
+        queryKey: ["relatedProducts", product.id],
+        queryFn: async () => {
+            const response = await request({
+                method: "get",
+                url: "/products",
+                params: {
+                    category: product?.category.id,
+                    limit: 12,
+                }
+            });
+            return response.data;
+        },
+    });
+
     if (isLoading) {
         return <p className="text-center text-gray-600">Loading product details...</p>;
     }
@@ -80,31 +95,31 @@ function Product() {
                         </div>
                         <p className="mt-4 text-gray-600">{product.description}</p>
                         <div className="pt-4">
-                            <h3 className="text-sm text-gray-800 uppercase mb-1">Size</h3>
+                            <h3 className="text-gray-800 uppercase mb-1">Size</h3>
                             <div className="flex items-center gap-2">
-                                {["XS", "S", "M", "L", "XL"].map((size) => (
-                                    <div key={size} className="size-selector">
-                                        <input type="radio" name="size" id={`size-${size}`} className="hidden" />
+                                {product.variants.map((variant) => (
+                                    <div key={variant.id} className="size-selector">
+                                        <input type="radio" name="size" id={`${variant.id}`} className="hidden" />
                                         <label
-                                            htmlFor={`size-${size}`}
-                                            className="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
+                                            htmlFor={`${variant.id}`}
+                                            className="p-1 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
                                         >
-                                            {size}
+                                            {variant.size}
                                         </label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div className="pt-4">
-                            <h3 className="text-xl text-gray-800 mb-3 uppercase font-medium">Color</h3>
+                            <h3 className="text-gray-800 mb-3 uppercase font-medium">Color</h3>
                             <div className="flex items-center gap-2">
-                                {["#fc3d57", "#000", "#fff"].map((color, index) => (
-                                    <div key={index} className="color-selector">
-                                        <input type="radio" name="color" id={`color-${index}`} className="hidden" />
+                                {product.variants.map((variant) => (
+                                    <div key={variant.id} className="color-selector">
+                                        <input type="radio" name="color" id={`color-${variant.id}`} className="hidden" />
                                         <label
-                                            htmlFor={`color-${index}`}
+                                            htmlFor={`color-${variant.id}`}
                                             className="border border-gray-200 rounded-sm h-6 w-6 cursor-pointer shadow-sm block"
-                                            style={{ backgroundColor: color }}
+                                            style={{ backgroundColor: 'red' }}
                                         ></label>
                                     </div>
                                 ))}
@@ -145,7 +160,7 @@ function Product() {
                 <div className="container pb-16">
                     <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">Related products</h2>
                     <div className="grid grid-cols-4 gap-6">
-                        {[].map((relatedProduct) => (
+                        {relatedProducts && relatedProducts.map((relatedProduct) => (
                             <ProductCard key={relatedProduct.id} product={relatedProduct} />
                         ))}
                     </div>
