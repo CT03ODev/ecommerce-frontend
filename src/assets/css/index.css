@@ -32,4 +32,66 @@
     .input-box {
         @apply block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded placeholder-gray-400 focus:border-primary focus:ring-0;
     }
+
+    .content p {
+        @apply mb-4 md:mb-6 text-gray-900 dark:text-white;
+    }
+    
+    .content a {
+        @apply text-primary underline transition duration-100 hover:text-primary active:text-primary;
+    }
+
+    .content h2, .content h2 strong {
+        @apply mb-2 font-semibold text-gray-800 dark:text-white text-2xl md:mb-4 scroll-mt-16;
+    }
+    
+    .content h3, .content h3 strong {
+        @apply mb-2 font-semibold text-gray-800 dark:text-white text-xl md:mb-4 scroll-mt-16;
+    }
+
+    .content h4, .content h4 strong {
+        @apply mb-2 font-semibold text-gray-800 dark:text-white text-base md:mb-4 scroll-mt-16;
+    }
+    
+    .content img {
+        @apply inline-block lg:min-w-[36rem] mb-2;
+    }
+
+    .content figure figcaption {
+        @apply mb-6 text-center;
+    }
+
+    .content figure.image {
+        text-align: center;
+    }
+    
+    .content ul {
+        @apply mb-6 list-inside list-disc md:mb-8;
+    }
+    
+    .content li {
+        @apply list-disc list-inside;
+    }
+    
+    .content table {
+        @apply mb-2 table-fixed border border-gray-500 dark:border-gray-400 text-gray-900 dark:text-white;
+    }
+    
+    .content th, .content td {
+        @apply p-2 border border-gray-500 dark:border-gray-400;
+    }
+
+    .content blockquote {
+        @apply mb-6 border-l-4 pl-4 italic text-gray-500 dark:text-gray-400 md:mb-8 md:pl-6;
+    }
+
+    .content iframe {
+        @apply mb-6 w-full h-[80vh];
+    }
+    
+    /* custom style for MathML */
+    .content mjx-container {
+        @apply text-gray-900 dark:text-white;
+    }
+
 }

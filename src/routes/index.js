@@ -1,5 +1,4 @@
 import MainLayout from "../components/layouts/MainLayout";
-import Category from "../pages/Category";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";

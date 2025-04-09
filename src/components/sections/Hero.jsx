@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
     return (
         <div className="bg-cover bg-no-repeat bg-center py-36" style={{ backgroundImage: "url('assets/images/banner-bg.jpg')" }}>
@@ -9,8 +11,8 @@ function Hero() {
                     accusantium perspiciatis, sapiente
                     magni eos dolorum ex quos dolores odio</p>
                 <div className="mt-12">
-                    <a href="#" className="bg-primary border border-primary text-white px-8 py-3 font-medium 
-                    rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
+                    <Link to="/shop" className="bg-primary border border-primary text-white px-8 py-3 font-medium 
+                    rounded-md hover:bg-transparent hover:text-primary">Shop Now</Link>
                 </div>
             </div>
         </div>

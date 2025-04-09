@@ -49,7 +49,7 @@ function Header() {
                                 data.map((category) => (
                                     <Link
                                         key={category.id}
-                                        to={`/category/${category.slug}`}
+                                        to={`/shop?category=${category.slug}`}
                                         className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
                                     >
                                         <span className="ml-6 text-gray-600 text-sm">{category.name}</span>
