@@ -20,7 +20,7 @@ function Product() {
     });
 
     const { data: relatedProducts, isLoading: isLoadingRelated, isError: isErrorRelated } = useQuery({
-        queryKey: ["relatedProducts", product.id],
+        queryKey: ["relatedProducts", product?.id],
         queryFn: async () => {
             const response = await request({
                 method: "get",
