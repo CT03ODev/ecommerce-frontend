@@ -1,8 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import useCartStore from "../../stores/cartStore";
+import { toast } from "react-hot-toast";
 
 function ProductCard({ product }) {
+    const { addItem } = useCartStore();
+
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        addItem(product, 1);
+        toast.success("Product added to cart");
+    };
+
     return (
         <div className="bg-white shadow rounded overflow-hidden group">
             <div className="relative">
@@ -40,9 +50,12 @@ function ProductCard({ product }) {
                     <div className="text-xs text-gray-500 ml-3">(150)</div>
                 </div>
             </div>
-            <Link to={`/product/${product.slug}`}
-                className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
-                to cart</Link>
+            <button
+                onClick={handleAddToCart}
+                className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
+            >
+                Add to cart
+            </button>
         </div>
     );
 }

@@ -7,6 +7,16 @@ import NotFound from "../pages/NotFound";
 import Product from "../pages/Product";
 import Register from "../pages/Register";
 import Shop from "../pages/Shop";
+import Account from "../pages/Account";
+import OrderHistory from "../pages/account/OrderHistory";
+import Returns from "../pages/account/Returns";
+import Cancellations from "../pages/account/Cancellations";
+import Reviews from "../pages/account/Reviews";
+import PaymentMethods from "../pages/account/PaymentMethods";
+import Vouchers from "../pages/account/Vouchers";
+import Wishlist from "../pages/account/Wishlist";
+import ManageAddresses from "../pages/account/ManageAddresses";
+import Cart from "../pages/Cart";
 
 const routes = [
     {
@@ -15,8 +25,67 @@ const routes = [
         layout: MainLayout,
     },
     {
+        path: '/account',
+        page: Account,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders',
+        page: OrderHistory,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/returns',
+        page: Returns,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/cancellations',
+        page: Cancellations,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/reviews',
+        page: Reviews,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/payment-methods',
+        page: PaymentMethods,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/vouchers',
+        page: Vouchers,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/wishlist',
+        page: Wishlist,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/addresses',
+        page: ManageAddresses,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
         path: '/about',
         page: About,
+        layout: MainLayout,
+    },
+    {
+        path: '/cart',
+        page: Cart,
         layout: MainLayout,
     },
     {
@@ -49,7 +118,7 @@ const routes = [
     {
         path: '/*',
         page: NotFound,
-        layout: MainLayout
+        layout: MainLayout,
     },
 ];
 
