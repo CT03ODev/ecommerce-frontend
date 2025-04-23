@@ -17,6 +17,7 @@ import Vouchers from "../pages/account/Vouchers";
 import Wishlist from "../pages/account/Wishlist";
 import ManageAddresses from "../pages/account/ManageAddresses";
 import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 
 const routes = [
     {
@@ -87,6 +88,12 @@ const routes = [
         path: '/cart',
         page: Cart,
         layout: MainLayout,
+    },
+    {
+        path: '/checkout',
+        page: Checkout,
+        layout: MainLayout,
+        isPrivate: true,
     },
     {
         path: '/contact',

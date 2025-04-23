@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../constants';
 
 function ProductGallery({ product }) {
     const [images, setImages] = useState([]);
@@ -17,7 +18,7 @@ function ProductGallery({ product }) {
                     variant.images.forEach(image => {
                         // Kiểm tra trùng lặp trước khi thêm vào
                         if (!allImages.includes(image)) {
-                            allImages.push(image);
+                            allImages.push(apiUrl + '/storage/' + image.image);
                         }
                     });
                 }
@@ -36,7 +37,7 @@ function ProductGallery({ product }) {
                 <img 
                     src={selectedImage} 
                     alt={product.name} 
-                    className="w-full object-cover"
+                    className="w-full aspect-video object-contain bg-gray-200"
                 />
             </div>
             
@@ -46,7 +47,7 @@ function ProductGallery({ product }) {
                         key={index}
                         src={image}
                         alt={`Gallery ${index}`}
-                        className={`w-full cursor-pointer border hover:border-blue-500 ${selectedImage === image ? 'border-blue-500 border-2' : 'border-gray-200'}`}
+                        className={`w-full aspect-square object-contain cursor-pointer bg-gray-200 border hover:border-blue-500 ${selectedImage === image ? 'border-blue-500 border-2' : 'border-gray-200'}`}
                         onClick={() => handleImageClick(image)}
                     />
                 ))}

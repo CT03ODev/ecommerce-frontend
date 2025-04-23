@@ -1,8 +1,13 @@
 // Add this function to your existing authService
 export const updatePassword = async (data) => {
-    return await requestWithAuth({
+    const response = await request({
         url: '/auth/update-password',
         method: 'put',
-        data,
+        data: {
+            current_password: data.current_password,
+            password: data.password,
+            password_confirmation: data.password_confirmation
+        }
     });
+    return response;
 };

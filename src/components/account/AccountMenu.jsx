@@ -15,8 +15,8 @@ const AccountMenu = () => {
             title: 'My Order History',
             items: [
                 { label: 'My Orders', path: '/account/orders' },
-                { label: 'My Returns', path: '/account/returns' },
-                { label: 'My Cancellations', path: '/account/cancellations' },
+                // { label: 'My Returns', path: '/account/returns' },
+                // { label: 'My Cancellations', path: '/account/cancellations' },
                 { label: 'My Reviews', path: '/account/reviews' },
             ]
         },

@@ -3,6 +3,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function CartItem({ item, onQuantityChange, onRemove }) {
+    // Lấy số lượng tồn kho từ variant hoặc sản phẩm
+    const stockQuantity = item.variant?.stock_quantity || 0;
+
     return (
         <div className="flex items-center gap-6 p-4 border border-gray-200 rounded mb-4">
             <div className="w-28">
@@ -15,17 +18,27 @@ function CartItem({ item, onQuantityChange, onRemove }) {
                     </Link>
                 </h3>
                 {item.variant && (
-                    <p className="text-sm text-gray-600">
-                        Size: {item.variant.size}
-                    </p>
+                    <div className="text-sm text-gray-600">
+                        <p>Size: {item.variant.size}</p>
+                        {item.variant.color && (
+                            <div className="flex items-center gap-2">
+                                <span>Màu sắc:</span>
+                                <div 
+                                    className="w-6 h-6 rounded-full border"
+                                    style={{ backgroundColor: item.variant.color }}
+                                ></div>
+                            </div>
+                        )}
+                    </div>
                 )}
                 <p className="text-primary font-medium">${item.product.price}</p>
             </div>
             <div className="flex items-center gap-2">
                 <div className="flex border border-gray-300 text-gray-600 divide-x divide-gray-300">
                     <button
-                        className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                        className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={() => onQuantityChange(item.product.id, item.quantity - 1, item.variant?.id)}
+                        disabled={item.quantity <= 1}
                     >
                         -
                     </button>
@@ -33,8 +46,9 @@ function CartItem({ item, onQuantityChange, onRemove }) {
                         {item.quantity}
                     </div>
                     <button
-                        className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                        className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={() => onQuantityChange(item.product.id, item.quantity + 1, item.variant?.id)}
+                        disabled={item.quantity >= stockQuantity}
                     >
                         +
                     </button>
@@ -46,6 +60,11 @@ function CartItem({ item, onQuantityChange, onRemove }) {
                     <FontAwesomeIcon icon={faTrash} />
                 </button>
             </div>
+            {stockQuantity > 0 && item.quantity >= stockQuantity && (
+                <p className="text-red-500 text-sm mt-1">
+                    Đã đạt giới hạn số lượng tồn kho
+                </p>
+            )}
         </div>
     );
 }

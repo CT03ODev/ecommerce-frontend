@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,6 +86,17 @@ function Product() {
         }
     };
 
+    // Thêm useEffect để tự động chọn variant đầu tiên
+    useEffect(() => {
+        if (product?.variants?.length > 0) {
+            const firstVariant = product.variants[0];
+            setSelectedSize(firstVariant.size);
+            if (firstVariant.color) {
+                setSelectedColor(firstVariant.color);
+            }
+        }
+    }, [product]);
+
     if (isLoading) {
         return <p className="text-center text-gray-600">Loading product details...</p>;
     }
@@ -136,7 +147,7 @@ function Product() {
                     </div>
                 </div>
 
-                <div className="container pb-16">
+                <div className="container pb-16 mt-8">
                     <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">
                         Product detail description
                     </h2>
