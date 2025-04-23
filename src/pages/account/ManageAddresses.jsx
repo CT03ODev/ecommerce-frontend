@@ -5,6 +5,7 @@ import AccountLayout from "../../components/account/AccountLayout";
 import AddressCard from "../../components/account/AddressCard";
 import AddressModal from "../../components/account/AddressModal";
 import { addressService } from "../../services/addressService";
+import PageHelmet from "../../components/common/PageHelmet";
 
 function ManageAddresses() {
     const queryClient = useQueryClient();
@@ -67,6 +68,10 @@ function ManageAddresses() {
 
     return (
         <AccountLayout title="Manage Addresses">
+            <PageHelmet 
+                title="Manage Addresses"
+                description="Manage your shipping addresses"
+            />
             <div>
                 <div className="flex justify-between items-center mb-6">
                     <div></div>

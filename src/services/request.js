@@ -31,7 +31,7 @@ instance.interceptors.response.use(
         const { status } = response;
 
         // Handle 401 errors and prevent infinite loops
-        if (status === 401 && !config._retry && config.url !== '/auth/refresh') {
+        if (status === 401 && !config._retry && config.url !== '/auth/refresh' && config.url!== '/auth/logout') {
             config._retry = true; // Mark the request as retried
             try {
                 const data = await instance.post('/auth/refresh');

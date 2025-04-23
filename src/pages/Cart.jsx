@@ -8,6 +8,7 @@ import CartSummary from "../components/cart/CartSummary";
 import EmptyCart from "../components/cart/EmptyCart";
 import toast from "react-hot-toast";
 import { request } from "../services/request";
+import PageHelmet from '../components/common/PageHelmet';
 
 function Cart() {
     const { items, removeItem, updateQuantity, getTotal } = useCartStore();

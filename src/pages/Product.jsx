@@ -11,6 +11,7 @@ import ProductGallery from "../components/product/ProductGallery";
 import ProductInfo from "../components/product/ProductInfo";
 import ProductVariants from "../components/product/ProductVariants";
 import ProductQuantity from "../components/product/ProductQuantity";
+import PageHelmet from "../components/common/PageHelmet";
 
 function Product() {
     const { productSlug } = useParams();
@@ -46,8 +47,8 @@ function Product() {
     });
 
     const handleAddToCart = () => {
-        const variant = product.variants.find(v => 
-            v.size === selectedSize && 
+        const variant = product.variants.find(v =>
+            v.size === selectedSize &&
             (!v.color || v.color === selectedColor)
         );
 
@@ -55,7 +56,7 @@ function Product() {
             toast.error("Please select product options");
             return;
         }
-        
+
         addItem(product, quantity, variant);
         toast.success("Product added to cart");
     };
@@ -108,13 +109,17 @@ function Product() {
     return (
         <>
             {isSuccess && <div>
+                <PageHelmet
+                    title={product.name}
+                    description={product.description}
+                />
                 <div className="mt-8 container grid lg:grid-cols-2 gap-8">
                     <ProductGallery product={product} />
 
                     <div className="py-4">
                         <ProductInfo product={product} />
-                        
-                        <ProductVariants 
+
+                        <ProductVariants
                             sizes={sizes}
                             colors={colors}
                             selectedSize={selectedSize}
@@ -124,7 +129,7 @@ function Product() {
                             variants={product.variants}
                         />
 
-                        <ProductQuantity 
+                        <ProductQuantity
                             quantity={quantity}
                             onQuantityChange={handleQuantityChange}
                         />

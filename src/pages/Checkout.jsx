@@ -4,6 +4,7 @@ import useCartStore from "../stores/cartStore";
 import { request, requestWithAuth } from "../services/request";
 import toast from "react-hot-toast";
 import { addressService } from "../services/addressService";
+import PageHelmet from '../components/common/PageHelmet';
 
 function Checkout() {
     const navigate = useNavigate();

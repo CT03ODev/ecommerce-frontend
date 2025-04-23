@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AccountLayout from "../../components/account/AccountLayout";
 import { requestWithAuth } from "../../services/request";
+import PageHelmet from '../../components/common/PageHelmet';
 
 function OrderHistory() {
     const [orders, setOrders] = useState([]);

@@ -5,6 +5,7 @@ import ProductList from "../components/sections/ProductList";
 import ProductCategoryList from "../components/sections/ProductCategoryList";
 import { useQuery } from "@tanstack/react-query";
 import { request } from "../services/request";
+import PageHelmet from '../components/common/PageHelmet';
 
 function Home() {
     const { data: latestProducts, isLoading: isLoadingLatest, isError: isErrorLatest } = useQuery({
@@ -41,6 +42,10 @@ function Home() {
 
     return (
         <>
+            <PageHelmet 
+                title="Home"
+                description="Discover high-quality products at the best prices"
+            />
             <Hero />
             <div className="container mt-32 pb-16 space-y-32">
                 <Services />

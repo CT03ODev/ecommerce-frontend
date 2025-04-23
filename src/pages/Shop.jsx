@@ -4,6 +4,7 @@ import ProductCard from "../components/product/ProductCard";
 import Sidebar from "../components/shop/Sidebar";
 import { request } from "../services/request";
 import { useSearchParams } from "react-router-dom";
+import PageHelmet from "../components/common/PageHelmet";
 
 function Shop() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -80,6 +81,12 @@ function Shop() {
 
     return (
         <div className="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
+            <>
+                <PageHelmet
+                    title="Products"
+                    description="Browse our product collection"
+                />
+            </>
             <Sidebar filters={filters} onFilterChange={handleFilterChange} />
             <div className="col-span-3">
                 <div className="flex items-center mb-4">
@@ -108,9 +115,8 @@ function Shop() {
                     <button
                         onClick={() => handlePageChange(pageParams.current_page - 1)}
                         disabled={pageParams.current_page === 1}
-                        className={`px-4 py-2 bg-primary text-white rounded ${
-                            pageParams.current_page === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-primary-dark"
-                        }`}
+                        className={`px-4 py-2 bg-primary text-white rounded ${pageParams.current_page === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-primary-dark"
+                            }`}
                     >
                         Previous
                     </button>
@@ -120,11 +126,10 @@ function Shop() {
                     <button
                         onClick={() => handlePageChange(pageParams.current_page + 1)}
                         disabled={pageParams.current_page === pageParams.last_page}
-                        className={`px-4 py-2 bg-primary text-white rounded ${
-                            pageParams.current_page === pageParams.last_page
+                        className={`px-4 py-2 bg-primary text-white rounded ${pageParams.current_page === pageParams.last_page
                                 ? "opacity-50 cursor-not-allowed"
                                 : "hover:bg-primary-dark"
-                        }`}
+                            }`}
                     >
                         Next
                     </button>
