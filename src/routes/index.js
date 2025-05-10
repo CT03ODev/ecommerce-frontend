@@ -18,6 +18,8 @@ import Wishlist from "../pages/account/Wishlist";
 import ManageAddresses from "../pages/account/ManageAddresses";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
+import CheckoutSuccess from "../pages/checkout/Success";
+import CheckoutFailed from "../pages/checkout/Failed";
 
 const routes = [
     {
@@ -92,6 +94,18 @@ const routes = [
     {
         path: '/checkout',
         page: Checkout,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/checkout/success',
+        page: CheckoutSuccess,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/checkout/failed',
+        page: CheckoutFailed,
         layout: MainLayout,
         isPrivate: true,
     },

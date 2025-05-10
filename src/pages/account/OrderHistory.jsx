@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AccountLayout from "../../components/account/AccountLayout";
-import { requestWithAuth } from "../../services/request";
+import { orderService } from "../../services/orderService";
 import PageHelmet from '../../components/common/PageHelmet';
 
 function OrderHistory() {
@@ -11,10 +11,7 @@ function OrderHistory() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await requestWithAuth({
-                    url: '/orders',
-                    method: 'GET',
-                });
+                const response = await orderService.getOrders();
                 setOrders(response);
             } catch (err) {
                 setError('Error fetching orders');

@@ -15,24 +15,17 @@ const AccountMenu = () => {
             title: 'My Order History',
             items: [
                 { label: 'My Orders', path: '/account/orders' },
-                // { label: 'My Returns', path: '/account/returns' },
-                // { label: 'My Cancellations', path: '/account/cancellations' },
-                { label: 'My Reviews', path: '/account/reviews' },
+                { label: 'My Returns', path: '/account/returns' },
+                { label: 'My Cancellations', path: '/account/cancellations' },
+                // { label: 'My Reviews', path: '/account/reviews' },
             ]
         },
-        {
-            title: 'Payment Methods',
-            items: [
-                { label: 'Payment Methods', path: '/account/payment-methods' },
-                { label: 'Voucher', path: '/account/vouchers' },
-            ]
-        },
-        {
-            title: 'My Wishlist',
-            items: [
-                { label: 'My Wishlist', path: '/account/wishlist' },
-            ]
-        },
+        // {
+        //     title: 'My Wishlist',
+        //     items: [
+        //         { label: 'My Wishlist', path: '/account/wishlist' },
+        //     ]
+        // },
     ];
 
     return (
