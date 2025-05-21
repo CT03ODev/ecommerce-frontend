@@ -6,7 +6,7 @@ function Footer() {
             <footer className="bg-white pt-16 pb-12 border-t border-gray-100">
                 <div className="container grid grid-cols-1 ">
                     <div className="col-span-1 space-y-4">
-                        <img src="../assets/images/logo.svg" alt="logo" className="w-30"/>
+                        <img src="/assets/images/logo.svg" alt="logo" className="w-30"/>
                             <div className="mr-2">
                                 <p className="text-gray-500">
                                     { app.description }
