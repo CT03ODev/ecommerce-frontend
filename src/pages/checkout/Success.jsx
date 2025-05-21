@@ -52,7 +52,7 @@ function CheckoutSuccess() {
 
                     <div className="space-x-4">
                         <button
-                            onClick={() => navigate('/account/orders')}
+                            onClick={() => navigate('/account/orders/processing')}
                             className="bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark"
                         >
                             Xem đơn hàng
