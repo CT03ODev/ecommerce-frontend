@@ -19,6 +19,9 @@ function Checkout() {
     const [paymentMethod, setPaymentMethod] = useState('cod');
     const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
     const [editingAddress, setEditingAddress] = useState(null);
+    const [voucherCode, setVoucherCode] = useState('');
+    const [voucherError, setVoucherError] = useState('');
+    const [appliedVoucher, setAppliedVoucher] = useState(null);
 
     const handleAddAddress = async (data) => {
         try {
@@ -66,7 +69,6 @@ function Checkout() {
 
         setLoading(true);
         try {
-            // Prepare order items
             const variantIds = [];
             const quantities = [];
             items.forEach(item => {
@@ -74,25 +76,21 @@ function Checkout() {
                 quantities.push(item.quantity);
             });
 
-            // Calculate amounts
-            const subtotal = getTotal();
-            const taxAmount = subtotal * 0.05; // 5% tax
-            const shippingAmount = 10; // Fixed shipping fee
-            const totalAmount = subtotal + taxAmount + shippingAmount;
-
-            // Create order using orderService
-            const response = await orderService.createOrder({
+            const orderData = {
                 address_id: selectedAddress,
                 variant_ids: variantIds,
                 quantities: quantities,
                 payment_method: paymentMethod,
-                total_amount: totalAmount,
-                tax_amount: taxAmount,
-                shipping_amount: shippingAmount,
                 notes: orderNote
-            });
+            };
 
-            // Xử lý redirect dựa vào phương thức thanh toán
+            // Thêm voucher nếu có
+            if (appliedVoucher) {
+                orderData.voucher_code = appliedVoucher.code;
+            }
+
+            const response = await orderService.createOrder(orderData);
+
             if (response.payment_url) {
                 window.location.href = response.payment_url;
             } else {
@@ -106,6 +104,53 @@ function Checkout() {
             toast.error(message);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const calculateDiscount = () => {
+        if (!appliedVoucher) return 0;
+
+        const subtotal = getTotal();
+        let discount = 0;
+
+        if (appliedVoucher.discount_type === 'fixed') {
+            discount = appliedVoucher.discount_value;
+        } else {
+            discount = (subtotal * appliedVoucher.discount_value) / 100;
+            if (appliedVoucher.maximum_discount) {
+                discount = Math.min(discount, appliedVoucher.maximum_discount);
+            }
+        }
+
+        if (appliedVoucher.minimum_spend && subtotal < appliedVoucher.minimum_spend) {
+            return 0;
+        }
+
+        return discount;
+    };
+
+    const calculateTotal = () => {
+        const subtotal = getTotal();
+        const discount = calculateDiscount();
+        const tax = (subtotal - discount) * 0.05;
+        const shipping = 10;
+        return subtotal - discount + tax + shipping;
+    };
+
+    const handleApplyVoucher = async () => {
+        if (!voucherCode.trim()) {
+            setVoucherError('Please enter a voucher code');
+            return;
+        }
+
+        try {
+            const response = await orderService.validateVoucher(voucherCode);
+            setAppliedVoucher(response.voucher);
+            setVoucherError('');
+            toast.success('Voucher applied successfully!');
+        } catch (error) {
+            setVoucherError(error.response?.data?.error || 'Invalid voucher code');
+            setAppliedVoucher(null);
         }
     };
 
@@ -243,7 +288,7 @@ function Checkout() {
                             label=""
                             id="orderNote"
                             type="textarea" 
-                            placeholder="Thêm ghi chú đặc biệt cho đơn hàng của bạn"
+                            placeholder="Additional notes for your order"
                             value={orderNote}
                             onChange={(e) => setOrderNote(e.target.value)}
                             register={() => ({})}
@@ -255,11 +300,50 @@ function Checkout() {
                 <div className="lg:col-span-1">
                     <div className="bg-white p-6 rounded-lg shadow">
                         <h3 className="text-lg font-medium mb-4">Order Summary</h3>
+                        
+                        {/* Voucher Section */}
+                        <div className="mb-4 pb-4 border-b">
+                            <div className="flex items-center gap-2">
+                                <InputField
+                                    type="text"
+                                    value={voucherCode}
+                                    onChange={(e) => setVoucherCode(e.target.value)}
+                                    placeholder="Enter voucher code"
+                                    register={() => ({})}
+                                />
+                                <button
+                                    onClick={handleApplyVoucher}
+                                    disabled={!voucherCode.trim() || loading}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                            {voucherError && (
+                                <p className="text-red-500 text-sm mt-1">{voucherError}</p>
+                            )}
+                            {appliedVoucher && (
+                                <div className="mt-2 p-2 bg-green-50 text-green-700 rounded-md text-sm">
+                                    <p>Voucher applied: {appliedVoucher.code}</p>
+                                    <p>Discount: {appliedVoucher.discount_type === 'fixed' ? 
+                                        `$${appliedVoucher.discount_value}` : 
+                                        `${appliedVoucher.discount_value}%`}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
                         <div className="space-y-2">
                             <div className="flex justify-between">
                                 <span>Subtotal</span>
                                 <span>${getTotal().toFixed(2)}</span>
                             </div>
+                            {appliedVoucher && (
+                                <div className="flex justify-between text-green-600">
+                                    <span>Discount</span>
+                                    <span>-${calculateDiscount().toFixed(2)}</span>
+                                </div>
+                            )}
                             <div className="flex justify-between">
                                 <span>Tax (5%)</span>
                                 <span>${(getTotal() * 0.05).toFixed(2)}</span>
@@ -271,7 +355,7 @@ function Checkout() {
                             <div className="border-t pt-2 mt-2">
                                 <div className="flex justify-between font-medium">
                                     <span>Total</span>
-                                    <span>${(getTotal() * 1.05 + 10).toFixed(2)}</span>
+                                    <span>${calculateTotal().toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -291,3 +375,6 @@ function Checkout() {
 }
 
 export default Checkout;
+
+
+    

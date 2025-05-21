@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 import Shop from "../pages/Shop";
 import Account from "../pages/Account";
 import OrderHistory from "../pages/account/OrderHistory";
+import OrderDetail from "../pages/account/OrderDetail";
 import Returns from "../pages/account/Returns";
 import Cancellations from "../pages/account/Cancellations";
 import Reviews from "../pages/account/Reviews";
@@ -20,6 +21,11 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import CheckoutSuccess from "../pages/checkout/Success";
 import CheckoutFailed from "../pages/checkout/Failed";
+import PendingOrders from "../pages/account/PendingOrders";
+import ProcessingOrders from "../pages/account/ProcessingOrders";
+import ShippedOrders from "../pages/account/ShippedOrders";
+import DeliveredOrders from "../pages/account/DeliveredOrders";
+import CancelledOrders from "../pages/account/CancelledOrders";
 
 const routes = [
     {
@@ -36,6 +42,12 @@ const routes = [
     {
         path: '/account/orders',
         page: OrderHistory,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/:orderId',
+        page: OrderDetail,
         layout: MainLayout,
         isPrivate: true,
     },
@@ -78,6 +90,36 @@ const routes = [
     {
         path: '/account/addresses',
         page: ManageAddresses,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/pending',
+        page: PendingOrders,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/processing',
+        page: ProcessingOrders,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/shipped',
+        page: ShippedOrders,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/delivered',
+        page: DeliveredOrders,
+        layout: MainLayout,
+        isPrivate: true,
+    },
+    {
+        path: '/account/orders/cancelled',
+        page: CancelledOrders,
         layout: MainLayout,
         isPrivate: true,
     },

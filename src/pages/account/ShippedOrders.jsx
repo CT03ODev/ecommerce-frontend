@@ -4,7 +4,7 @@ import AccountLayout from "../../components/account/AccountLayout";
 import { orderService } from "../../services/orderService";
 import PageHelmet from '../../components/common/PageHelmet';
 
-function OrderHistory() {
+function ShippedOrders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -12,10 +12,10 @@ function OrderHistory() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await orderService.getOrders();
+                const response = await orderService.getOrders('shipped');
                 setOrders(response);
             } catch (err) {
-                setError('Error fetching orders');
+                setError('Error loading orders');
                 console.error('Error fetching orders:', err);
             } finally {
                 setLoading(false);
@@ -26,23 +26,23 @@ function OrderHistory() {
     }, []);
 
     if (loading) return (
-        <AccountLayout title="My Orders">
+        <AccountLayout title="Shipped Orders">
             <div className="text-center">Loading...</div>
         </AccountLayout>
     );
 
     if (error) return (
-        <AccountLayout title="My Orders">
+        <AccountLayout title="Shipped Orders">
             <div className="text-red-500">{error}</div>
         </AccountLayout>
     );
 
     return (
-        <AccountLayout title="My Orders">
+        <AccountLayout title="Shipped Orders">
             <div className="bg-white rounded-lg shadow">
                 {orders.length === 0 ? (
                     <div className="p-4 text-center text-gray-500">
-                        You have no orders yet
+                        You have no shipped orders
                     </div>
                 ) : (
                     <div className="divide-y">
@@ -71,4 +71,4 @@ function OrderHistory() {
     );
 }
 
-export default OrderHistory;
+export default ShippedOrders;

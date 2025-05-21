@@ -5,19 +5,20 @@ const AccountMenu = () => {
     
     const menuItems = [
         {
-            title: 'Manage Account',
+            title: 'Account Management',
             items: [
-                { label: 'Profile Information', path: '/account' },
-                { label: 'Manage Addresses', path: '/account/addresses' },
+                { label: 'Personal Information', path: '/account' },
+                { label: 'Address Management', path: '/account/addresses' },
             ]
         },
         {
-            title: 'My Order History',
+            title: 'My Orders',
             items: [
-                { label: 'My Orders', path: '/account/orders' },
-                { label: 'My Returns', path: '/account/returns' },
-                { label: 'My Cancellations', path: '/account/cancellations' },
-                // { label: 'My Reviews', path: '/account/reviews' },
+                { label: 'Pending', path: '/account/orders/pending' },
+                { label: 'Processing', path: '/account/orders/processing' },
+                { label: 'Shipped', path: '/account/orders/shipped' },
+                { label: 'Delivered', path: '/account/orders/delivered' },
+                { label: 'Cancelled', path: '/account/orders/cancelled' },
             ]
         },
         // {

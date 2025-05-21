@@ -2,10 +2,13 @@ import { requestWithAuth } from './request';
 
 export const orderService = {
     // Lấy danh sách đơn hàng
-    getOrders: async () => {
+    getOrders: async (status = null) => {
         const response = await requestWithAuth({
             url: '/orders',
-            method: 'GET'
+            method: 'GET',
+            params: {
+                status: status
+            }
         });
         return response;
     },
@@ -27,5 +30,10 @@ export const orderService = {
             data: orderData
         });
         return response;
+    },
+
+    validateVoucher: async (code) => {
+        const response = await axiosClient.post('/api/orders/validate-voucher', { code });
+        return response.data;
     }
 };
