@@ -1,5 +1,7 @@
 import { use, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import ProductCard from "../components/product/ProductCard";
 import Sidebar from "../components/shop/Sidebar";
 import { request } from "../services/request";
@@ -8,6 +10,7 @@ import PageHelmet from "../components/common/PageHelmet";
 
 function Shop() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
     const [sort, setSort] = useState("latest"); // State for sorting
     const [pageParams, setPageParams] = useState({ current_page: 1, last_page: 1 }); // State for pagination
     const [sortFilter, setSortFilter] = useState({}); // State for sorting
@@ -79,17 +82,47 @@ function Shop() {
         }));
     };
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setFilters(prev => ({
+            ...prev,
+            q: searchTerm.trim()
+        }));
+    };
+
     return (
         <div className="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
-            <>
-                <PageHelmet
-                    title="Products"
-                    description="Browse our product collection"
-                />
-            </>
+            <PageHelmet
+                title="Products"
+                description="Browse our product collection"
+            />
             <Sidebar filters={filters} onFilterChange={handleFilterChange} />
             <div className="col-span-3">
-                <div className="flex items-center mb-4">
+                {/* Thêm form tìm kiếm */}
+                <div className="mb-4">
+                    <form onSubmit={handleSearch} className="flex gap-2">
+                        <div className="relative flex-1">
+                            <span className="absolute left-4 top-3 text-lg text-gray-400">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </span>
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="Search product..."
+                                className="w-full border border-gray-300 rounded pl-12 py-3 pr-3 focus:outline-none focus:border-primary"
+                            />
+                        </div>
+                        <button 
+                            type="submit"
+                            className="bg-primary border border-primary text-white px-8 rounded hover:bg-transparent hover:text-primary transition"
+                        >
+                            Search
+                        </button>
+                    </form>
+                </div>
+
+                <div className="flex items-center justify-end mb-4">
                     <select
                         name="sort"
                         id="sort"
