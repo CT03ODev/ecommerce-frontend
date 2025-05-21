@@ -95,7 +95,7 @@ function Checkout() {
                 window.location.href = response.payment_url;
             } else {
                 clearCart();
-                navigate(`/account/orders/${response.order.id}`);
+                navigate(`/account/orders/${response.id}`);
                 toast.success('Order placed successfully!');
             }
         } catch (error) {
@@ -144,12 +144,14 @@ function Checkout() {
         }
 
         try {
-            const response = await orderService.validateVoucher(voucherCode);
+            const subtotal = getTotal();
+            const response = await orderService.validateVoucher(voucherCode, subtotal);
             setAppliedVoucher(response.voucher);
             setVoucherError('');
             toast.success('Voucher applied successfully!');
         } catch (error) {
-            setVoucherError(error.response?.data?.error || 'Invalid voucher code');
+            console.error(error);
+            setVoucherError(error.response?.data?.message || 'Invalid voucher code');
             setAppliedVoucher(null);
         }
     };
@@ -313,7 +315,7 @@ function Checkout() {
                                 />
                                 <button
                                     onClick={handleApplyVoucher}
-                                    disabled={!voucherCode.trim() || loading}
+                                    // disabled={!voucherCode.trim() || loading}
                                     className="px-4 py-2 bg-red-500 text-white rounded-lg"
                                 >
                                     Apply

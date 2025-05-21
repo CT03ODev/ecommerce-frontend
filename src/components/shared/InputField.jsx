@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputField({ label, id, type, placeholder, register, validation, error }) {
+function InputField({ label, id, type, placeholder, register, validation, error, onChange }) {
     return (
         <div>
             <label htmlFor={id} className="text-gray-600 mb-2 block">{label}</label>
@@ -9,6 +9,7 @@ function InputField({ label, id, type, placeholder, register, validation, error 
                 id={id}
                 className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
                 placeholder={placeholder}
+                onChange={onChange}
                 {...register(id, validation)}
             />
             {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}

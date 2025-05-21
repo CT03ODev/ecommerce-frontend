@@ -32,8 +32,12 @@ export const orderService = {
         return response;
     },
 
-    validateVoucher: async (code) => {
-        const response = await axiosClient.post('/api/orders/validate-voucher', { code });
-        return response.data;
+    validateVoucher: async (code, subtotal) => {
+        const response = await requestWithAuth({
+            url: '/orders/validate-voucher',
+            method: 'POST',
+            data: { code, subtotal }
+        });
+        return response;
     }
 };
